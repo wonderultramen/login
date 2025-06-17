@@ -1,0 +1,85 @@
+/* style.css - Gaya utama mirip miggi.id */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(270deg, #ff4d4d, #6a11cb, #2575fc, #42e695);
+  background-size: 800% 800%;
+  animation: gradientBG 20s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+h3 {
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background-color: #ffffff;
+  color: #2b1055;
+  padding: 14px 28px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 0.5rem;
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  background-color: #eeeeee;
+}
+
+p, a {
+  color: white;
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+img.gallery-img, img.event-img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}

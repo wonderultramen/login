@@ -1,0 +1,64 @@
+/* unified.css - Gaya seragam Wonder Ultramen */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.centered-gradient {
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  background: linear-gradient(-45deg, #2b1055, #7597de, #7d5fff, #5d2ee7);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.3em;
+  margin-bottom: 40px;
+}
+
+.cta-button {
+  background-color: #fff;
+  color: #2b1055;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #e5e5e5;
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 2em; }
+  h3 { font-size: 1em; }
+  .cta-button { padding: 12px 24px; font-size: 1em; }
+}
