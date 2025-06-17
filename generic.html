@@ -1,0 +1,348 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+  header("Location: login.php");
+  exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Kami - Wonder Ultramen</title>
+  <link rel="icon" href="assets/images/logo.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+  #preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.preloader-content {
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+.preloader-logo {
+  width: 100px;
+  height: 100px;
+  animation: rotateGlow 2s linear infinite;
+}
+
+.loading-text {
+  margin-top: 15px;
+  font-size: 1.2rem;
+  color: #00f2ff;
+  text-shadow: 0 0 5px #00f2ff, 0 0 10px #00f2ff, 0 0 15px #00f2ff;
+  font-weight: bold;
+  animation: pulseText 1.5s infinite ease-in-out;
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg); filter: drop-shadow(0 0 5px #00f2ff); }
+  100% { transform: rotate(360deg); filter: drop-shadow(0 0 20px #00f2ff); }
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #6a11cb, #2575fc, #00c9ff, #92fe9d);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .wrapper {
+      max-width: 100%;
+      width: 100%;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+
+    h1, h2, h3 {
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      max-width: 100%;
+      width: 100%;
+      margin: 1rem auto;
+      padding: 0 1rem;
+      line-height: 1.6;
+      color: #f0f0f0;
+      text-align: center;
+    }
+
+    .image.main img {
+      display: block;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      margin: 1.5rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    table {
+      width: 100%;
+      max-width: 100%;
+      margin: 2rem auto;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    th {
+      background-color: #6c5ce7;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    td {
+      padding: 12px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    tr:nth-child(odd) td {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover td {
+      background-color: #dfe6e9;
+    }
+
+    tr.color-1 td { background-color: #ffeaa7; }
+    tr.color-2 td { background-color: #fab1a0; }
+    tr.color-3 td { background-color: #81ecec; }
+    tr.color-4 td { background-color: #a29bfe; }
+    tr.color-5 td { background-color: #55efc4; }
+
+    .cta-button {
+      margin-top: 2rem;
+      padding: 14px 28px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        padding: 1rem;
+      }
+
+      h1, h2, h3 {
+        font-size: 1.4rem;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      table th, table td {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .cta-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="preloader">
+  <div class="preloader-content">
+    <img src="assets/images/logo.png" alt="Loading..." class="preloader-logo" />
+    <p class="loading-text">Loading...</p>
+  </div>
+</div>
+
+  <canvas id="starCanvas"></canvas>
+
+  <div class="wrapper">
+    <img src="assets/images/logo.png" alt="Logo Wonder Ultramen" class="logo">
+    <h1>Tentang Kami</h1>
+
+    <p>Komunitas <strong>Wonder Ultramen Mahasiswa</strong> adalah wadah yang menggabungkan semangat kebersamaan, semangat belajar, dan kegiatan seru bagi para mahasiswa dari berbagai daerah.</p>
+    <p>Kami hadir sebagai tempat untuk berbagi ilmu, pengalaman, dan membangun relasi positif melalui berbagai aktivitas mulai dari diskusi, coding bersama, liburan bareng, hingga event komunitas yang menarik.</p>
+    <p>Bergabunglah dan jadi bagian dari komunitas yang mendukung pertumbuhan, kreativitas, dan kolaborasi antarmahasiswa!</p>
+
+    <h2><u>ADMIN WONDER ULTRAMEN</u></h2>
+    <h3>Citra Mukti (Jakarta)</h3>
+    <h3>Gava Joko Pratama (Semarang)</h3>
+    <h3>Malihatun Nisa (Lampung)</h3>
+    <h3>Raihan Faiz M (Solo)</h3>
+	<h3>M Zidni Syukron (Demak)</h3>
+
+    <div class="image main">
+      <img src="assets/images/admin.jpg" alt="Admin Wonder Ultramen" />
+    </div>
+
+    <h2>Daftar Anggota Wonder Ultramen</h2>
+
+    <table>
+       <thead>
+        <tr><th>No</th><th>Nama</th><th>Nomor Anggota</th></tr>
+      </thead>
+      <tbody>
+        <tr class="color-1"><td>1</td><td>Fauzan Nur H</td><td>22339865006</td></tr>
+      <tr class="color-2"><td>2</td><td>M. Miftahussurur</td><td>22339865007</td></tr>
+      <tr class="color-3"><td>3</td><td>M. Abdul Aziz S.Pd</td><td>22339865008</td></tr>
+      <tr class="color-4"><td>4</td><td>Beplani</td><td>22339865011</td></tr>
+      <tr class="color-5"><td>5</td><td>Aulia Qurrotul A</td><td>22339865014</td></tr>
+      <tr class="color-1"><td>6</td><td>Didi Handayani</td><td>22339865015</td></tr>
+      <tr class="color-2"><td>7</td><td>Purnama Anugrah</td><td>22339865021</td></tr>
+      <tr class="color-3"><td>8</td><td>Nazarudin Ilyas</td><td>22339865022</td></tr>
+      <tr class="color-4"><td>9</td><td>Rizky</td><td>22339865023</td></tr>
+      <tr class="color-5"><td>10</td><td>Jacky vallare</td><td>22339865024</td></tr>
+      <tr class="color-1"><td>11</td><td>M. Ariyanto</td><td>22339865025</td></tr>
+      <tr class="color-2"><td>12</td><td>Maya Amelia Putri</td><td>22339865027</td></tr>
+      <tr class="color-3"><td>13</td><td>Ilham Dzilkirom M A</td><td>22339865028</td></tr>
+      <tr class="color-4"><td>14</td><td>Memoris Dakhi</td><td>22339865029</td></tr>
+      <tr class="color-5"><td>15</td><td>R. Sultan N. S. W</td><td>22339865030</td></tr>
+      <tr class="color-1"><td>16</td><td>Ali Akbar Rahmat</td><td>22339865031</td></tr>
+      <tr class="color-2"><td>17</td><td>Fauzan Nur Hidayat</td><td>22339865032</td></tr>
+      <tr class="color-3"><td>18</td><td>Tyas Maulana Pratama</td><td>22339865033</td></tr>
+      <tr class="color-4"><td>19</td><td>Wawah Sri Sunenti</td><td>22339865034</td></tr>
+      <tr class="color-5"><td>20</td><td>Rangga Surya Pratama</td><td>22339865035</td></tr>
+      <tr class="color-1"><td>21</td><td>DIKI</td><td>22339865036</td></tr>
+      <tr class="color-2"><td>22</td><td>Arung Muh Bilal Alwi</td><td>22339865037</td></tr>
+      <tr class="color-3"><td>23</td><td>KHOIRUN ZAIDAN MUCHTAR</td><td>22339865038</td></tr>
+      <tr class="color-4"><td>24</td><td>Anggraita Ali Waskito</td><td>22339865039</td></tr>
+      <tr class="color-5"><td>25</td><td>Faysa Maharani</td><td>22339865040</td></tr>
+      <tr class="color-1"><td>26</td><td>Nuril Muslimin</td><td>22339865041</td></tr>
+      <tr class="color-2"><td>27</td><td>Dany Pratama S</td><td>22339865042</td></tr>
+      <tr class="color-3"><td>28</td><td>Rifki</td><td>22339865043</td></tr>
+      <tr class="color-4"><td>29</td><td>Nur Difa Ramadhani</td><td>22339865044</td></tr>
+      <tr class="color-5"><td>30</td><td>Herbert Baginisura</td><td>22339865045</td></tr>
+      <tr class="color-1"><td>31</td><td>Tesalonika</td><td>22339865046</td></tr>
+      <tr class="color-2"><td>32</td><td>Muhammad Zidni Syukron</td><td>22339865047</td></tr>
+      <tr class="color-3"><td>33</td><td>Rafi Alvino Rizer</td><td>22339865048</td></tr>
+      <tr class="color-4"><td>34</td><td>SITI SHOLIHAH</td><td>22339865049</td></tr>
+      <tr class="color-5"><td>35</td><td>Dini Nuralfiah</td><td>22339865050</td></tr>
+      </tbody>
+    </table>
+
+    <a href="dashboard.php"><button class="cta-button">Kembali ke Beranda</button></a>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+    for (let i = 0; i < 100; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 1.5,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
+    function animateStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      for (let star of stars) {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.x = Math.random() * canvas.width;
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+    animateStars();
+  </script>
+<section>
+<p>&copy; 2025 | Wonder Ultramen Mahasiswa Community | Semua hak cipta dilindungi.
+						</section>
+						<script>
+  window.addEventListener("load", function () {
+    const preloader = document.getElementById("preloader");
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 600);
+  });
+</script>
+
+</body>
+</html>
